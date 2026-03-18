@@ -1,0 +1,66 @@
+﻿@model IEnumerable<_2380602555_LeNgocQuangVinh_KTGiuaKy.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Xác Nhận Đăng Ký";
+    var sinhVien = ViewBag.SinhVien as _2380602555_LeNgocQuangVinh_KTGiuaKy.Models.SinhVien;
+    int tongSoHocPhan = Model != null ? Model.Count() : 0;
+    int tongSoTinChi = Model != null ? Model.Sum(m => m.SoTinChi) : 0;
+}
+
+<h2 class="mt-4 mb-4 text-secondary">Đăng Kí học phần</h2>
+
+<table class="table table-borderless border-top border-bottom">
+    <thead>
+        <tr class="border-bottom">
+            <th>MaHP</th>
+            <th>Tên Học Phần</th>
+            <th>Số Chí Chỉ</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle border-bottom">
+                <td>@item.MaHP</td>
+                <td>@item.TenHP</td>
+                <td>@item.SoTinChi</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h6 class="text-danger font-weight-bold text-end mt-3 border-bottom pb-3">Số lượng học phần: @tongSoHocPhan</h6>
+<h6 class="text-danger font-weight-bold text-end border-bottom pb-3">Tổng số tín chỉ: @tongSoTinChi</h6>
+<div class="text-end border-bottom pb-3 mb-4">
+    <a asp-action="GioHang" class="text-decoration-none text-primary font-weight-bold">Trở về giỏ hàng</a>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 text-center">
+        <h3 class="text-secondary mb-4">Thông tin Đăng kí</h3>
+        <dl class="row text-start">
+            <dt class="col-sm-5 mb-3">Mã số Sinh Viên:</dt>
+            <dd class="col-sm-7 fw-bold mb-3">@sinhVien?.MaSV</dd>
+
+            <dt class="col-sm-5 mb-3">Họ Tên Sinh Viên:</dt>
+            <dd class="col-sm-7 fw-bold mb-3">@sinhVien?.HoTen</dd>
+
+            <dt class="col-sm-5 mb-3">Ngày Sinh:</dt>
+            <dd class="col-sm-7 fw-bold mb-3">@(sinhVien?.NgaySinh?.ToString("M/d/yyyy hh:mm:ss tt"))</dd>
+
+            <dt class="col-sm-5 mb-3">Ngành Học:</dt>
+            <dd class="col-sm-7 fw-bold mb-3">@sinhVien?.MaNganh</dd>
+
+            <dt class="col-sm-5 mb-4">Ngày Đăng Kí:</dt>
+            <dd class="col-sm-7 fw-bold mb-4">@DateTime.Now.ToString("M/d/yyyy")</dd>
+        </dl>
+
+        <form asp-action="DatHang" method="post">
+            <button type="submit" class="btn btn-success px-4 rounded-1">Xác Nhận</button>
+        </form>
+    </div>
+</div>
+
+<div class="mt-5 pt-3 border-top text-muted">
+</div>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<_2380602555_LeNgocQuangVinh_KTGiuaKy.Models.SinhVien>
+
+@{
+    ViewData["Title"] = "Trang Sinh Viên";
+}
+
+<h2 class="mt-4 mb-3 text-uppercase text-secondary">TRANG SINH VIÊN</h2>
+
+<p>
+    <a asp-action="Create" class="text-decoration-none">Add Student</a>
+</p>
+
+<table class="table table-borderless border-top border-bottom">
+    <thead>
+        <tr class="border-bottom">
+            <th>MaSV</th>
+            <th>HoTen</th>
+            <th>GioiTinh</th>
+            <th>NgaySinh</th>
+            <th>Hinh</th>
+            <th>MaNganh</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle border-bottom">
+                <td>@item.MaSV</td>
+                <td>@item.HoTen</td>
+                <td>@item.GioiTinh</td>
+                <td>@(item.NgaySinh.HasValue? item.NgaySinh.Value.ToString("M/d/yyyy hh:mm:ss tt") : "")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Hinh))
+                    {
+                        <img src="@item.Hinh" alt="Hình sinh viên" style="max-height: 150px; object-fit: cover;" class="img-thumbnail border-0" />
+                    }
+                </td>
+                <td>@(item.NganhHoc != null ? item.NganhHoc.MaNganh : item.MaNganh)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaSV" class="text-decoration-none">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaSV" class="text-decoration-none">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaSV" class="text-decoration-none">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

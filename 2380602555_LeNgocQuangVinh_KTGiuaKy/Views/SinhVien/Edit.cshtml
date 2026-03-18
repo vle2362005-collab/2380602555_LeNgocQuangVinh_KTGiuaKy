@@ -1,0 +1,73 @@
+﻿@model _2380602555_LeNgocQuangVinh_KTGiuaKy.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Hiệu chỉnh thông tin";
+}
+
+<h2 class="text-secondary mt-4 mb-4">Hiệu chỉnh thông tin sinh viên</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaSV" />
+            <input type="hidden" asp-for="Hinh" />
+
+            <div class="form-group row mb-3 align-items-center">
+                <label asp-for="HoTen" class="col-sm-3 col-form-label fw-bold text-end">HoTen</label>
+                <div class="col-sm-9">
+                    <input asp-for="HoTen" class="form-control" />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3 align-items-center">
+                <label asp-for="GioiTinh" class="col-sm-3 col-form-label fw-bold text-end">GioiTinh</label>
+                <div class="col-sm-9">
+                    <input asp-for="GioiTinh" class="form-control" />
+                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3 align-items-center">
+                <label asp-for="NgaySinh" class="col-sm-3 col-form-label fw-bold text-end">NgaySinh</label>
+                <div class="col-sm-9">
+                    <input asp-for="NgaySinh" class="form-control" type="text" value="@(Model.NgaySinh.HasValue? Model.NgaySinh.Value.ToString("M/d/yyyy hh:mm:ss tt") : "")" />
+                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold text-end">Hinh</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control mb-2" value="@Model.Hinh" readonly />
+                    @if (!string.IsNullOrEmpty(Model.Hinh))
+                    {
+                        <img src="@Model.Hinh" alt="Hình đại diện" style="max-height: 200px; object-fit: cover;" class="img-thumbnail border-0 d-block mb-2" />
+                    }
+                    <div class="d-flex align-items-center">
+                        <input type="file" name="HinhUpload" class="form-control" accept="image/*" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row mb-4 align-items-center">
+                <label asp-for="MaNganh" class="col-sm-3 col-form-label fw-bold text-end">MaNganh</label>
+                <div class="col-sm-9">
+                    <select asp-for="MaNganh" class="form-select" asp-items="ViewBag.MaNganh"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <input type="submit" value="Save" class="btn btn-outline-secondary px-4" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="text-decoration-none">Back to List</a>
+</div>

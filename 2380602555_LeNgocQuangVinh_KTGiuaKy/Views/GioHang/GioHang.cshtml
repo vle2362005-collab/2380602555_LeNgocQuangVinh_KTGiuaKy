@@ -1,0 +1,51 @@
+﻿@model IEnumerable<_2380602555_LeNgocQuangVinh_KTGiuaKy.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Đăng Kí Học Phần";
+    int tongSoHocPhan = Model != null ? Model.Count() : 0;
+    int tongSoTinChi = Model != null ? Model.Sum(m => m.SoTinChi) : 0;
+}
+
+<h2 class="mt-4 mb-4 text-secondary">Đăng Kí Học Phần</h2>
+
+<table class="table table-borderless border-top border-bottom">
+    <thead>
+        <tr class="border-bottom">
+            <th>MaHP</th>
+            <th>Tên Học Phần</th>
+            <th>Số Chí Chỉ</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr class="align-middle border-bottom">
+                    <td>@item.MaHP</td>
+                    <td>@item.TenHP</td>
+                    <td>@item.SoTinChi</td>
+                    <td class="text-end">
+                        <a asp-action="XoaGioHang" asp-route-maHP="@item.MaHP" class="text-decoration-none text-primary">Xóa</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h6 class="text-danger font-weight-bold mt-3 border-bottom pb-3">Số học phần: @tongSoHocPhan</h6>
+<h6 class="text-danger font-weight-bold border-bottom pb-3">Tổng số tín chỉ: @tongSoTinChi</h6>
+
+<div class="text-end border-bottom pb-3 mt-3">
+    <a asp-action="XoaTatCa" class="text-decoration-none text-primary font-weight-bold d-block mb-3">Xóa Đăng Kí</a>
+
+    @if (tongSoHocPhan > 0)
+    {
+        <a asp-action="DatHang" class="text-decoration-none text-primary font-weight-bold d-block">Lưu đăng ký</a>
+    }
+</div>
+
+<div class="mt-4 pt-3 text-muted">
+</div>

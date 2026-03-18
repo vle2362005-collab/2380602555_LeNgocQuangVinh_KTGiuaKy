@@ -1,0 +1,75 @@
+﻿@model _2380602555_LeNgocQuangVinh_KTGiuaKy.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Thêm Sinh Viên";
+}
+
+<h2 class="text-secondary text-uppercase mt-4">THÊM SINH VIÊN</h2>
+<h5 class="text-muted mb-4">SinhVien</h5>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row mb-3 align-items-center">
+                <label asp-for="MaSV" class="col-sm-3 col-form-label fw-bold text-end">MaSV</label>
+                <div class="col-sm-9">
+                    <input asp-for="MaSV" class="form-control" />
+                    <span asp-validation-for="MaSV" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3 align-items-center">
+                <label asp-for="HoTen" class="col-sm-3 col-form-label fw-bold text-end">HoTen</label>
+                <div class="col-sm-9">
+                    <input asp-for="HoTen" class="form-control" />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3 align-items-center">
+                <label asp-for="GioiTinh" class="col-sm-3 col-form-label fw-bold text-end">GioiTinh</label>
+                <div class="col-sm-9">
+                    <input asp-for="GioiTinh" class="form-control" />
+                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3 align-items-center">
+                <label asp-for="NgaySinh" class="col-sm-3 col-form-label fw-bold text-end">NgaySinh</label>
+                <div class="col-sm-9">
+                    <input asp-for="NgaySinh" class="form-control" type="date" />
+                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold text-end">Hinh</label>
+                <div class="col-sm-9">
+                    <input type="file" name="HinhUpload" class="form-control" accept="image/*" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-4 align-items-center">
+                <label asp-for="MaNganh" class="col-sm-3 col-form-label fw-bold text-end">MaNganh</label>
+                <div class="col-sm-9">
+                    <select asp-for="MaNganh" class="form-select" asp-items="ViewBag.MaNganh"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <input type="submit" value="Create" class="btn btn-outline-secondary px-4" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="text-decoration-none">Back to List</a>
+</div>

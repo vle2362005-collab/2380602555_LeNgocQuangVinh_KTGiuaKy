@@ -1,0 +1,40 @@
+﻿@model _2380602555_LeNgocQuangVinh_KTGiuaKy.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Chi Tiết Sinh Viên";
+}
+
+<h2 class="text-secondary mt-4">Thông tin chi tiết</h2>
+<h5 class="text-muted mb-4">SinhVien</h5>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3 text-end">HoTen</dt>
+        <dd class="col-sm-9">@Model.HoTen</dd>
+
+        <dt class="col-sm-3 text-end">GioiTinh</dt>
+        <dd class="col-sm-9">@Model.GioiTinh</dd>
+
+        <dt class="col-sm-3 text-end">NgaySinh</dt>
+        <dd class="col-sm-9">@(Model.NgaySinh.HasValue? Model.NgaySinh.Value.ToString("M/d/yyyy hh:mm:ss tt") : "")</dd>
+
+        <dt class="col-sm-3 text-end">Hinh</dt>
+        <dd class="col-sm-9">
+            @if (!string.IsNullOrEmpty(Model.Hinh))
+            {
+                <img src="@Model.Hinh" style="max-height: 200px; object-fit: cover;" class="img-thumbnail border-0" />
+            }
+        </dd>
+
+        <dt class="col-sm-3 text-end">MaNganh</dt>
+        <dd class="col-sm-9">@(Model.NganhHoc != null ? Model.NganhHoc.MaNganh : Model.MaNganh)</dd>
+    </dl>
+</div>
+<div class="row mt-4">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-9">
+        <a asp-action="Edit" asp-route-id="@Model?.MaSV" class="text-decoration-none">Edit</a> |
+        <a asp-action="Index" class="text-decoration-none">Back to List</a>
+    </div>
+</div>
