@@ -1,23 +1,18 @@
-# ... (giữ nguyên phần đầu) ...
-
-@app.route("/encrypt", methods=['POST'])
-def caesar_encrypt():
-    text = request.form['inputPlainText']
-    key = int(request.form['inputKeyPlain'])
-    Caesar = CaesarCipher()
-    encrypted_text = Caesar.encrypt_text(text, key)
-    
-    # Thay đổi ở đây: Trả về lại trang caesar.html và truyền theo biến encrypted_text
-    return render_template('caesar.html', encrypted_text=encrypted_text)
-
-@app.route("/decrypt", methods=['POST'])
-def caesar_decrypt():
-    text = request.form['inputCipherText']
-    key = int(request.form['inputKeyCipher'])
-    Caesar = CaesarCipher()
-    decrypted_text = Caesar.decrypt_text(text, key)
-    
-    # Thay đổi ở đây: Trả về lại trang caesar.html và truyền theo biến decrypted_text
-    return render_template('caesar.html', decrypted_text=decrypted_text)
-
-# ... (giữ nguyên phần cuối) ...
+<button type="submit" class="btn btn-primary">Encrypt</button>
+                        
+                        {% if encrypted_text %}
+                        <div class="alert alert-success mt-3" style="font-weight: bold;">
+                            Encrypted text: <span style="color: red;">{{ encrypted_text }}</span>
+                        </div>
+                        {% endif %}
+                    </form>
+                </td>
+                <button type="submit" class="btn btn-success">Decrypt</button>
+                        
+                        {% if decrypted_text %}
+                        <div class="alert alert-info mt-3" style="font-weight: bold;">
+                            Decrypted text: <span style="color: red;">{{ decrypted_text }}</span>
+                        </div>
+                        {% endif %}
+                    </form>
+                </td>
