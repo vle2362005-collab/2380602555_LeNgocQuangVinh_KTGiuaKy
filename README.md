@@ -1,23 +1,21 @@
-class TranspositionCipher:
-    def __init__(self):
-        pass
+from cipher.transposition import TranspositionCipher      # Thêm vào phần đầu của file api.py
 
-    def encrypt(self, text, key):
-        encrypted_text = ''
-        for col in range(key):
-            pointer = col
-            while pointer < len(text):
-                encrypted_text += text[pointer]
-                pointer += key
-        return encrypted_text
+# Thêm đoạn sau vào trước hàm main
+# TRANSPOSITION CIPHER ALGORITHM
+transposition_cipher = TranspositionCipher()
 
-    def decrypt(self, text, key):
-        decrypted_text = [''] * key
-        row, col = 0, 0
-        for symbol in text:
-            decrypted_text[col] += symbol
-            col += 1
-            if col == key or (col == key - 1 and row >= len(text) % key):
-                col = 0
-                row += 1
-        return ''.join(decrypted_text)
+@app.route('/api/transposition/encrypt', methods=['POST'])
+def transposition_encrypt():
+    data = request.get_json()
+    plain_text = data.get('plain_text')
+    key = int(data.get('key'))
+    encrypted_text = transposition_cipher.encrypt(plain_text, key)
+    return jsonify({'encrypted_text': encrypted_text})
+
+@app.route('/api/transposition/decrypt', methods=['POST'])
+def transposition_decrypt():
+    data = request.get_json()
+    cipher_text = data.get('cipher_text')
+    key = int(data.get('key'))
+    decrypted_text = transposition_cipher.decrypt(cipher_text, key)
+    return jsonify({'decrypted_text': decrypted_text})
