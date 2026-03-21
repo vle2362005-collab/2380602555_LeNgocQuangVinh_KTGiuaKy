@@ -1,51 +1,21 @@
-class RailFenceCipher:
-    def __init__(self):
-        pass
+from cipher.railfence import RailFenceCipher  # Thêm vào phần đầu của file api.py
 
-    def rail_fence_encrypt(self, plain_text, num_rails):
-        rails = [[] for _ in range(num_rails)]
-        rail_index = 0
-        direction = 1 # 1: down, -1: up
-        for char in plain_text:
-            rails[rail_index].append(char)
-            if rail_index == 0:
-                direction = 1
-            elif rail_index == num_rails - 1:
-                direction = -1
-            rail_index += direction
-        cipher_text = ''.join(''.join(rail) for rail in rails)
-        return cipher_text
+# Thêm đoạn sau vào trước hàm main
+# RAILFENCE CIPHER ALGORITHM
+railfence_cipher = RailFenceCipher()
 
-    def rail_fence_decrypt(self, cipher_text, num_rails):
-        rail_lengths = [0] * num_rails
-        rail_index = 0
-        direction = 1
+@app.route('/api/railfence/encrypt', methods=['POST'])
+def encrypt():
+    data = request.json
+    plain_text = data['plain_text']
+    key = int(data['key'])
+    encrypted_text = railfence_cipher.rail_fence_encrypt(plain_text, key)
+    return jsonify({'encrypted_text': encrypted_text})
 
-        for _ in range(len(cipher_text)):
-            rail_lengths[rail_index] += 1
-            if rail_index == 0:
-                direction = 1
-            elif rail_index == num_rails - 1:
-                direction = -1
-            rail_index += direction
-
-        rails = []
-        start = 0
-        for length in rail_lengths:
-            rails.append(cipher_text[start:start + length])
-            start += length
-
-        plain_text = ""
-        rail_index = 0
-        direction = 1
-
-        for _ in range(len(cipher_text)):
-            plain_text += rails[rail_index][0]
-            rails[rail_index] = rails[rail_index][1:]
-            if rail_index == 0:
-                direction = 1
-            elif rail_index == num_rails - 1:
-                direction = -1
-            rail_index += direction
-            
-        return plain_text
+@app.route('/api/railfence/decrypt', methods=['POST'])
+def decrypt():
+    data = request.json
+    cipher_text = data['cipher_text']
+    key = int(data['key'])
+    decrypted_text = railfence_cipher.rail_fence_decrypt(cipher_text, key)
+    return jsonify({'decrypted_text': decrypted_text})
